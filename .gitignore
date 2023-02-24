@@ -156,7 +156,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
-*.db
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -183,3 +183,6 @@ fabric.properties
 config.py
 # idea folder, uncomment if you don't need it
 .idea
+
+
+test.db

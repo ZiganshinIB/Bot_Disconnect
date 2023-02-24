@@ -2,6 +2,8 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 
 
 class ProfileStatesGroup(StatesGroup):
-    name = State()
-    gender = State()
+    city = State()
+    company = State()
+    deportment = State()
+    position = State()
     description = State()

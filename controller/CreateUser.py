@@ -10,31 +10,64 @@ from model import DataFacade
 from controller.Observer import *
 
 
-async def start_create_process(message: types.Message, bot) -> None:
+async def user_start_create(message, bot):
     await bot.send_message(chat_id=message.from_user.id,
-                           text=text.create_name_profile,
+                           text=text.create_city_profile,
                            parse_mode="HTML",
                            reply_markup=keyboards.get_cancel_profile_kb())
-    await StatesTemplate.ProfileStatesGroup.name.set()
+    await StatesTemplate.ProfileStatesGroup.city.set()
 
 
-async def load_description(message: types.Message, state: FSMContext, bot) -> None:
+async def user_load_city(message: types.Message, state, bot):
     async with state.proxy() as data:
-        data["gender"] = message.text
+        data["city"] = message.text
+        data["name"] = message.from_user.first_name
+        data["last_name"] = message.from_user.last_name
+        data["username"] = message.from_user.username
     await bot.send_message(chat_id=message.from_user.id,
-                           text="Расскажи о себе",
+                           text=text.create_company_profile,
                            parse_mode="HTML",
                            reply_markup=keyboards.get_cancel_profile_kb())
     await StatesTemplate.ProfileStatesGroup.next()
 
 
-async def load_user(message: types.Message, state: FSMContext, bot) -> None:
+async def user_load_company(message, state, bot):
+    async with state.proxy() as data:
+        data["company"] = message.text
+    await bot.send_message(chat_id=message.from_user.id,
+                           text=text.create_deportment_profile,
+                           parse_mode="HTML",
+                           reply_markup=keyboards.get_cancel_profile_kb())
+    await StatesTemplate.ProfileStatesGroup.next()
+
+
+async def user_load_deportment(message, state, bot):
+    async with state.proxy() as data:
+        data["deportment"] = message.text
+    await bot.send_message(chat_id=message.from_user.id,
+                           text=text.create_position_profile,
+                           parse_mode="HTML",
+                           reply_markup=keyboards.get_cancel_profile_kb())
+    await StatesTemplate.ProfileStatesGroup.next()
+
+
+async def user_load_position(message, state, bot):
+    async with state.proxy() as data:
+        data["position"] = message.text
+    await bot.send_message(chat_id=message.from_user.id,
+                           text=text.create_description_profile,
+                           parse_mode="HTML",
+                           reply_markup=keyboards.get_cancel_profile_kb())
+    await StatesTemplate.ProfileStatesGroup.next()
+
+
+async def user_load_description(message, state, bot):
     async with state.proxy() as data:
         data["description"] = message.text
-        data[""]
-        await notify(['SUPER_ADMIN'], data, bot)
+        await notify_new_user(message.from_user.id, data, bot)
     await bot.send_message(chat_id=message.from_user.id,
-                           text="Мы сообрали информацию",
-                           parse_mode="HTML")
-    await DataFacade.add_user(message.from_user.id, **data)
+                           text="Спасибо жди ответа ",
+                           parse_mode="HTML",
+                           reply_markup=keyboards.get_cancel_profile_kb())
     await state.finish()
+

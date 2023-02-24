@@ -109,6 +109,12 @@ async def cmd_add_access(message: types.Message):
     await WorkUser.add_username_in_access(message=message, bot=bot)
 
 
+@dp.message_handler(lambda message: message.chat.id == message.from_user.id, commands=['add_userid_in_access'])
+async def cmd_add_access(message: types.Message):
+    await WorkUser.add_userid_in_access(message=message, bot=bot)
+
+
+
 @dp.message_handler(lambda message: message.chat.id == message.from_user.id, commands=['add_username_in_role'])
 async def cmd_add_role(message: types.Message):
     await WorkUser.add_user_in_role(message=message, bot=bot)

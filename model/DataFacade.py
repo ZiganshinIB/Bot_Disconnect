@@ -35,7 +35,6 @@ async def is_access(user_id: str, access_name: str) -> bool:
 
 
 async def get_user_id_role(role: str) -> list:
-    print("Привет")
     users_id = await sqlite._get_users_in_role_id(role_name=role)
 
     return [{'id': user_id[0]} for user_id in users_id]
@@ -43,7 +42,8 @@ async def get_user_id_role(role: str) -> list:
 
 async def get_users(**conditions) -> list:
     sql_users = await sqlite._get_users_and_(**conditions)
-    log.info(sql_users)
+    if not (sql_users):
+        raise ValueError("Ошибка не найдено")
     users = [{'id': sql_user[0],
               'name': sql_user[1],
               'last_name': sql_user[2],

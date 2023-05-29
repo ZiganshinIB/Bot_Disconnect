@@ -91,7 +91,7 @@ async def add_username_in_access(message: types.Message, bot: aiogram.Bot):
         await message.reply(text="У вас нет доступа")
 
 
-def add_userid_in_access(message: types.Message, bot: aiogram.Bot):
+async def add_userid_in_access(message: types.Message, bot: aiogram.Bot):
     if await DataFacade.is_access(message.from_user.id, "ADMIN_Access"):
         texts = message.text.split(' ')
         if len(texts) != 3:

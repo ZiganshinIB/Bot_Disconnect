@@ -26,7 +26,6 @@ from model.sqlite import *
 from model.sqlite import _db_start_
 from template import keyboards, text, StatesTemplate
 import config
-import hashlib, os
 
 
 storage = MemoryStorage()
@@ -39,14 +38,6 @@ print(type(log))
 async def on_startup(dp):
     await bot.set_webhook(config.WEBHOOK_URL)
     log.info("Start")
-
-
-async def on_shutdown(dp):
-    log.warning('Shutting down..')
-    await bot.delete_webhook()
-    await dp.storage.close()
-    await dp.storage.wait_closed()
-    log.warning("Bye")
 
 
 @dp.message_handler(lambda message: message.chat.id == -1001321018780, content_types=[ContentType.NEW_CHAT_MEMBERS])
@@ -136,12 +127,8 @@ async def cmd_info_user(message: types.Message):
 # *****************************************************--_USER_--***************************************************** #
 
 if __name__ == "__main__":
-    executor.start_webhook(
+    executor.start_polling(
         dispatcher=dp,
-        webhook_path=config.WEBHOOK_PATH,
         skip_updates=True,
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        host=config.WEBAPP_HOST,
-        port=config.WEBAPP_PORT,
+        on_startup=on_startup
     )

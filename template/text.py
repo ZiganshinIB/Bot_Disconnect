@@ -22,3 +22,8 @@ create_description_profile = "Расскжите <b>о себе</b> " \
 
 input_user_name = "Введите свое имя"
 
+input_user_last_name = "Введите свое фамилию"
+
+input_user_last_username = "Введите свой ник"
+
+

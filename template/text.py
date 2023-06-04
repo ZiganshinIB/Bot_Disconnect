@@ -19,3 +19,11 @@ create_position_profile = "Введите <b>Должность</b> " \
 
 create_description_profile = "Расскжите <b>о себе</b> " \
                           "— это поля будет использоваться в дальнейшем <em>для предаставление доступов и ролей</em> к боту"
+
+input_user_name = "Введите свое имя"
+
+input_user_last_name = "Введите свое фамилию"
+
+input_user_last_username = "Введите свой ник"
+
+

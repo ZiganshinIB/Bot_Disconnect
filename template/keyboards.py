@@ -22,3 +22,12 @@ def get_create_gender_kb() -> ReplyKeyboardMarkup:
     kb.add(b_men)
     kb.insert(b_women)
     return kb
+
+
+def get_create_job() -> ReplyKeyboardMarkup:
+    kb = ReplyKeyboardMarkup(resize_keyboard=True)
+    b_dit = KeyboardButton(text="Диджитал")
+    b_net = KeyboardButton(text="Коннект")
+    kb.add(b_net)
+    kb.insert(b_net)
+    return kb
